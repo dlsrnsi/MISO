@@ -228,6 +228,7 @@ def launch_job(cluster_cmd, cmd_name):
     # submission system
     output = proc.communicate()
     job_id = None
+    cmd_name = cmd_name.split(" ")[0]
     if cmd_name == "qsub":
         if "." in output[0][:-1] and ">" not in output[0]:
             job_id = int(output[0].split(".")[0])
@@ -279,6 +280,7 @@ def wait_on_jobs(job_ids, cluster_cmd,
     """
     Wait on a set of job IDs.
     """
+    cluster_cmd = cluster_cmd.split(" ")[0]
     if len(job_ids) == 0:
         return
     if cluster_cmd not in supported_cmds:
